@@ -3,7 +3,7 @@ const router = express.Router();
 const { TugasProyek } = require('../models');
 const { authenticate } = require('../middleware/auth');
 
-// Create a new TugasProyek
+// Berfungsi untuk membuat TugasProyek bary dengan menggunakan authenticate middleware untuk otentikasi.
 router.post('/',authenticate, async (req, res) => {
     try {
         const tugasProyek = await TugasProyek.create(req.body);
@@ -13,7 +13,7 @@ router.post('/',authenticate, async (req, res) => {
     }
 });
 
-// Get all TugasProyek
+// Berfungsi untuk mendapatkan semua daftar Tugas Proyek yang sudah dibuat dan mengambil semua entitas Tugas Proyek. 
 router.get('/', authenticate, async (req, res) => {
     try {
         const tugasProyek = await TugasProyek.findAll();
@@ -23,7 +23,7 @@ router.get('/', authenticate, async (req, res) => {
     }
 });
 
-// Get a TugasProyek by ID
+// Berfungsi untuk mendapatkan Tugas Proyek yang diinginkan berdasarkan ID Proyek sebagai Primary Key.
 router.get('/:id', authenticate, async (req, res) => {
     try {
         const tugasProyek = await TugasProyek.findByPk(req.params.id);
@@ -37,7 +37,8 @@ router.get('/:id', authenticate, async (req, res) => {
     }
 });
 
-// Update a TugasProyek by ID
+// Berfungsi untuk memperbarui entitas dari Tugas Proyek yang telah dibuat. Jika entitas sudah diperbarui maka fungsi mengambil
+// kembali entitas yang diperbarui dan mengembalikan status serta data pada updatedTugasProyek.
 router.put('/:id', authenticate, async (req, res) => {
     try {
         const [updated] = await TugasProyek.update(req.body, {
@@ -54,7 +55,7 @@ router.put('/:id', authenticate, async (req, res) => {
     }
 });
 
-// Delete a TugasProyek by ID
+// Berfugsi untuk menghapus entitas pada Tugas Proyek berdasarkan ID Tugas Proyek.
 router.delete('/:id', authenticate, async (req, res) => {
     try {
         const deleted = await TugasProyek.destroy({
@@ -70,4 +71,5 @@ router.delete('/:id', authenticate, async (req, res) => {
     }
 });
 
+// Digunakan untuk mengekspor router untuk digunakan dalam aplikasi Express.
 module.exports = router;
